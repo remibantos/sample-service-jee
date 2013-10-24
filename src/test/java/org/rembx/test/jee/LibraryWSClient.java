@@ -19,13 +19,14 @@ package org.rembx.test.jee;
 import org.rembx.test.jee.model.Book;
 import org.rembx.test.jee.model.Books;
 import org.rembx.test.jee.service.LibraryService;
+import org.rembx.test.jee.service.LibraryWebService;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class LibraryClient implements LibraryService {
+public class LibraryWSClient implements LibraryService {
     private LibraryService libraryService;
 
     /**
@@ -33,8 +34,8 @@ public class LibraryClient implements LibraryService {
      * 
      * @param wsdlUrl The URL to the LibraryService WSDL endpoint.
      */
-    public LibraryClient(final URL wsdlUrl) {
-        QName serviceName = new QName("http://service.jee.test.rembx.org/", "LibraryServiceImplService");
+    public LibraryWSClient(final URL wsdlUrl) {
+        QName serviceName = new QName("http://service.jee.test.rembx.org/", "LibraryWebServiceService");
 
         Service service = Service.create(wsdlUrl, serviceName);
         libraryService = service.getPort(LibraryService.class);
@@ -47,7 +48,7 @@ public class LibraryClient implements LibraryService {
      * @param url The URL to the Hello World WSDL endpoint.
      * @throws MalformedURLException if the WSDL url is malformed.
      */
-    public LibraryClient(final String url) throws MalformedURLException {
+    public LibraryWSClient(final String url) throws MalformedURLException {
         this(new URL(url));
     }
 
@@ -57,12 +58,12 @@ public class LibraryClient implements LibraryService {
     }
 
     @Override
-    public Book findBook(String id) {
+    public Book findBook(Integer id) {
         return libraryService.findBook(id);
     }
 
     @Override
-    public void deleteBook(String id) {
+    public void deleteBook(Integer id) {
         libraryService.deleteBook(id);
     }
 

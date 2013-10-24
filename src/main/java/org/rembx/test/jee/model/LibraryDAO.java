@@ -1,7 +1,6 @@
 package org.rembx.test.jee.model;
 
 
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,25 +13,21 @@ public class LibraryDAO {
     @PersistenceContext(unitName = "library")
     private EntityManager em;
 
-    public void createBook(Book book) {
+    public void createOrUpdateBook(Book book) {
         if (book==null)
             throw new IllegalArgumentException("book cannot be null");
-        em.persist(book);
+
+            em.merge(book);
+        
     }
 
-    public void updateBook(Book book) {
-        if (book==null)
-            throw new IllegalArgumentException("book cannot be null");
-        em.merge(book);
-    }
-
-    public Book getBook(String id) {
+    public Book getBook(Integer id) {
         if (id==null)
             throw new IllegalArgumentException("book id cannot be null");
         return em.find(Book.class,id);
     }
 
-    public void deleteBook(String id) {
+    public void deleteBook(Integer id) {
         if (id==null)
             throw new IllegalArgumentException("book id cannot be null");
 

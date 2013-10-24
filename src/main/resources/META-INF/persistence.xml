@@ -13,7 +13,8 @@
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-        </properties>
+			<property name="javax.persistence.sql-load-script-source" value="data.sql"/>
+		</properties>
 
 	</persistence-unit>
 		

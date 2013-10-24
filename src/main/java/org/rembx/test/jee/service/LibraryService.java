@@ -22,20 +22,18 @@ import org.rembx.test.jee.model.Books;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-
-
+/**
+ * Library service
+ */
 @WebService
 public interface LibraryService {
 
     @WebMethod
     public void createOrUpdateBook(Book book);
-
     @WebMethod
-    public Book findBook( String id);
-
+    public Book findBook( Integer id);
     @WebMethod
-    public void deleteBook( String id);
-
+    public void deleteBook( Integer id);
     @WebMethod
     public Books getAllBooks();
 }

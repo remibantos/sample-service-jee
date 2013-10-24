@@ -22,39 +22,39 @@ import org.rembx.test.jee.model.LibraryDAO;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 
 @Stateless
 @WebService
-public class LibraryServiceImpl implements LibraryService {
+public class LibraryWebService implements LibraryService {
 
     @Inject
     LibraryDAO libraryDAO;
 
     @Override
+    @WebMethod
     public void createOrUpdateBook(Book book) {
-        if (book.getId() == null) {
-            libraryDAO.createBook(book);
-        } else {
-            libraryDAO.updateBook(book);
-        }
+        libraryDAO.createOrUpdateBook(book);
 
     }
 
-
     @Override
-    public Book findBook(String id) {
+    @WebMethod
+    public Book findBook(Integer id) {
         return libraryDAO.getBook(id);
     }
 
     @Override
-    public void deleteBook(String id) {
+    @WebMethod
+    public void deleteBook(Integer id) {
 
         libraryDAO.deleteBook(id);
     }
 
     @Override
+    @WebMethod
     public Books getAllBooks() {
         return new Books(libraryDAO.getAllBooks());
     }

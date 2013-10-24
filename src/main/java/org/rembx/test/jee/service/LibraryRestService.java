@@ -18,7 +18,7 @@ import java.net.URI;
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Stateless
-public class LibraryRestService {
+public class LibraryRestService implements LibraryService {
 
 
     @Inject
@@ -33,25 +33,11 @@ public class LibraryRestService {
      * curl -X POST --data-binary "{\"description\":\"Books story\",\"illustrations\":true,\"isbn\":\"1234-12\",\"nbOfPage\":577,\"price\":12.5,\"title\":\"Books story\"}" -H "Content-Type: application/json" http://localhost:8080/sample-service-jee/rs/book -v
      */
     @POST
-    public Response createOrUpdateBook(Book book) {
+    @Override
+    public void createOrUpdateBook(Book book) {
         if (book == null)
             throw new BadRequestException();
-        if (book.getId() == null) {
-            libraryDAO.createBook(book);
-        } else {
-            libraryDAO.updateBook(book);
-        }
-        URI bookUri = uriInfo.getAbsolutePathBuilder().path(book.getId().toString()).build();
-        return Response.created(bookUri).build();
-    }
-
-    @PUT
-    public Response updateBook(Book book) {
-        if (book == null)
-            throw new BadRequestException();
-
-        libraryDAO.updateBook(book);
-        return Response.ok().build();
+        libraryDAO.createOrUpdateBook(book);
     }
 
     /**
@@ -60,13 +46,10 @@ public class LibraryRestService {
      */
     @GET
     @Path("{id}")
-    public Response findBook(@PathParam("id") String id) {
-        Book book = libraryDAO.getBook(id);
+    @Override
+    public Book findBook(@PathParam("id") Integer id) {
 
-        if (book == null)
-            throw new NotFoundException();
-
-        return Response.ok(book).build();
+        return libraryDAO.getBook(id);
     }
 
     /**
@@ -74,10 +57,9 @@ public class LibraryRestService {
      */
     @DELETE
     @Path("{id}")
-    public Response deleteBook(@PathParam("id") String id) {
+    @Override
+    public void deleteBook(@PathParam("id") Integer id) {
         libraryDAO.deleteBook(id);
-
-        return Response.noContent().build();
     }
 
     /**
@@ -85,9 +67,25 @@ public class LibraryRestService {
      * XML : curl -X GET -H "Accept: application/xml" http://localhost:8080/sample-service-jee/rs/book -v
      */
     @GET
-    public Response getAllBooks() {
+    @Override
+    public Books getAllBooks() {
 
-        Books books = new Books(libraryDAO.getAllBooks());
-        return Response.ok(books).build();
+        return new Books(libraryDAO.getAllBooks());
+    }
+
+    /**
+     * Same as createOrUpdateBook
+     * Use a ResponseBuilder
+     *
+     * @param book a book to create or update
+     * @return a response
+     */
+    @POST
+    public Response createOrUpdateBookWithResponse(Book book) {
+        if (book == null)
+            throw new BadRequestException();
+        libraryDAO.createOrUpdateBook(book);
+        URI bookUri = uriInfo.getAbsolutePathBuilder().path(book.getId().toString()).build();
+        return Response.created(bookUri).build();
     }
 }

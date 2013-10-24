@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.rembx.test.jee.model.Book;
+import org.rembx.test.jee.model.Books;
 import org.rembx.test.jee.model.LibraryDAO;
 import org.rembx.test.jee.service.LibraryService;
 
@@ -32,11 +33,11 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 @RunWith(Arquillian.class)
-public class LibraryServiceIT {
+public class LibraryWebServiceIT {
 
     /**
      * The name of the WAR Archive that will be used by Arquillian to deploy the application.
@@ -45,7 +46,7 @@ public class LibraryServiceIT {
     /**
      * The path of the WSDL endpoint in relation to the deployed web application.
      */
-    private static final String WSDL_PATH = "sample-service-jee/LibraryServiceImpl?wsdl";
+    private static final String WSDL_PATH = "sample-service-jee/LibraryWebService?wsdl";
     public static final String RESOURCES_META_INF = "src/main/resources/META-INF/";
 
     @ArquillianResource
@@ -65,22 +66,41 @@ public class LibraryServiceIT {
     @Before
     public void setup() {
         try {
-            client = new LibraryClient(new URL(deploymentUrl, WSDL_PATH));
+            client = new LibraryWSClient(new URL(deploymentUrl, WSDL_PATH));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void createShouldAddABookWhenNoIdProvided() {
+    public void createOrUpdateBookShouldAddABookWhenNotExisting() {
 
-        Book book = new Book("Beginning Java EE 7", 19.99F,"Beginning Java EE 7","143024626X",577,true);
+        Book book = new Book(1,"Beginning Java EE 7", 19.99F,"Beginning Java EE 7","143024626X",577,true);
 
         // Get a response from the WebService
         client.createOrUpdateBook(book);
 
-        assertEquals(client.getAllBooks().size(), 1);
+        assertEquals(client.findBook(1), book);
 
+    }
+    
+    @Test
+    public void deleteDataTestBook(){
+        assertNotNull(client.findBook(12345));
+        client.deleteBook(12345);
+        assertNull(client.findBook(12345));
+    }
+
+    @Test
+    public void findDataTestBook(){
+        assertNotNull(client.findBook(1234));
+    }
+
+    @Test
+    public void getAllBookwShouldReturnANotEmptySetOfBooks(){
+        Books allBooks = client.getAllBooks();
+        assertNotNull(client.getAllBooks());
+        assertNotEquals(0, allBooks.getBooks().size());
     }
 
 }
