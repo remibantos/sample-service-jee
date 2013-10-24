@@ -56,6 +56,6 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Books getAllBooks() {
-        return (libraryDAO.getAllBooks());
+        return new Books(libraryDAO.getAllBooks());
     }
 }

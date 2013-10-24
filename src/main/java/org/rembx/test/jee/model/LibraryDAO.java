@@ -5,6 +5,7 @@ import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Stateful
 public class LibraryDAO {
@@ -39,9 +40,9 @@ public class LibraryDAO {
             em.remove(book);
     }
 
-    public Books getAllBooks() {
+    public List<Book> getAllBooks() {
         TypedQuery<Book> query = em.createNamedQuery(Book.FIND_ALL, Book.class);
-        return new Books(query.getResultList());
+        return query.getResultList();
     }
 
 }
