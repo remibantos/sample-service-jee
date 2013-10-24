@@ -2,12 +2,13 @@ package org.rembx.test.jee.model;
 
 
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Stateful
+@Stateless
 public class LibraryDAO {
 
     @PersistenceContext(unitName = "library")
