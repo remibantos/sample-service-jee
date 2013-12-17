@@ -1,10 +1,10 @@
-package org.rembx.test.jee.dao;
+package org.rembx.sample.jee.dao;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.rembx.test.jee.model.Book;
+import org.rembx.sample.jee.model.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

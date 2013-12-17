@@ -1,7 +1,7 @@
-package org.rembx.test.jee.dao;
+package org.rembx.sample.jee.dao;
 
 
-import org.rembx.test.jee.model.Book;
+import org.rembx.sample.jee.model.Book;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

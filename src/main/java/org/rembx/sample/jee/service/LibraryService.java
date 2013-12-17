@@ -14,59 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rembx.test.jee.service;
+package org.rembx.sample.jee.service;
 
-import org.rembx.test.jee.model.Book;
-import org.rembx.test.jee.model.Books;
-import org.rembx.test.jee.dao.LibraryDAO;
+import org.rembx.sample.jee.model.Book;
+import org.rembx.sample.jee.model.Books;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 /**
- * Sample of stateless EJB WebService
+ * Library service
  * @author remibantos
  */
-@Stateless
 @WebService
-public class LibraryWebService implements LibraryService {
-    
-    LibraryDAO libraryDAO;
+public interface LibraryService {
 
-    public LibraryWebService(){
-
-    }
-    
-    @Inject
-    public LibraryWebService (LibraryDAO libraryDAO){
-        this.libraryDAO = libraryDAO;
-    }
-
-    @Override
     @WebMethod
-    public void createOrUpdateBook(Book book) {
-        libraryDAO.createOrUpdateBook(book);
-
-    }
-
-    @Override
+    public void createOrUpdateBook(Book book);
     @WebMethod
-    public Book findBook(Integer id) {
-        return libraryDAO.getBook(id);
-    }
-
-    @Override
+    public Book findBook( Integer id);
     @WebMethod
-    public void deleteBook(Integer id) {
-
-        libraryDAO.deleteBook(id);
-    }
-
-    @Override
+    public void deleteBook( Integer id);
     @WebMethod
-    public Books getAllBooks() {
-        return new Books(libraryDAO.getAllBooks());
-    }
+    public Books getAllBooks();
 }

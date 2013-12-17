@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rembx.test.jee;
+package org.rembx.sample.jee;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -24,10 +24,10 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.rembx.test.jee.model.Book;
-import org.rembx.test.jee.dao.LibraryDAO;
-import org.rembx.test.jee.model.Books;
-import org.rembx.test.jee.service.LibraryService;
+import org.rembx.sample.jee.model.Book;
+import org.rembx.sample.jee.dao.LibraryDAO;
+import org.rembx.sample.jee.model.Books;
+import org.rembx.sample.jee.service.LibraryService;
 
 import java.io.File;
 import java.net.MalformedURLException;

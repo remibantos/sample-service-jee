@@ -1,4 +1,4 @@
-package org.rembx.test.jee.model;
+package org.rembx.sample.jee.model;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;

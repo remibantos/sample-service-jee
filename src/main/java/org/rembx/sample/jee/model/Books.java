@@ -1,4 +1,4 @@
-package org.rembx.test.jee.model;
+package org.rembx.sample.jee.model;
 
 
 import javax.xml.bind.annotation.XmlElement;
