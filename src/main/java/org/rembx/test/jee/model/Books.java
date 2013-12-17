@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author remibantos
+ */
 @XmlRootElement
 @XmlSeeAlso(Book.class)
 public class Books extends ArrayList<Book> {
@@ -19,7 +22,6 @@ public class Books extends ArrayList<Book> {
     public Books(Collection<? extends Book> c) {
         super(c);
     }
-
 
     @XmlElement(name = "book")
     public List<Book> getBooks() {

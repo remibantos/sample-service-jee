@@ -24,6 +24,7 @@ import javax.jws.WebService;
 
 /**
  * Library service
+ * @author remibantos
  */
 @WebService
 public interface LibraryService {

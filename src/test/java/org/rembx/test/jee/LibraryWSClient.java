@@ -19,13 +19,14 @@ package org.rembx.test.jee;
 import org.rembx.test.jee.model.Book;
 import org.rembx.test.jee.model.Books;
 import org.rembx.test.jee.service.LibraryService;
-import org.rembx.test.jee.service.LibraryWebService;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * @author remibantos
+ */
 public class LibraryWSClient implements LibraryService {
     private LibraryService libraryService;
 
@@ -40,16 +41,6 @@ public class LibraryWSClient implements LibraryService {
         Service service = Service.create(wsdlUrl, serviceName);
         libraryService = service.getPort(LibraryService.class);
         assert (libraryService != null);
-    }
-    
-    /**
-     * Default constructor
-     * 
-     * @param url The URL to the Hello World WSDL endpoint.
-     * @throws MalformedURLException if the WSDL url is malformed.
-     */
-    public LibraryWSClient(final String url) throws MalformedURLException {
-        this(new URL(url));
     }
 
     @Override

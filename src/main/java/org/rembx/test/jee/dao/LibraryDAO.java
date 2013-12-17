@@ -1,5 +1,7 @@
-package org.rembx.test.jee.model;
+package org.rembx.test.jee.dao;
 
+
+import org.rembx.test.jee.model.Book;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -7,18 +9,26 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+/**
+ * @author remibantos
+ */
 @Stateless
 public class LibraryDAO {
 
     @PersistenceContext(unitName = "library")
     private EntityManager em;
 
+    public LibraryDAO(){
+    }
+    
+    public LibraryDAO(EntityManager em){
+        this.em = em;
+    }
+
     public void createOrUpdateBook(Book book) {
         if (book==null)
             throw new IllegalArgumentException("book cannot be null");
-
             em.merge(book);
-        
     }
 
     public Book getBook(Integer id) {

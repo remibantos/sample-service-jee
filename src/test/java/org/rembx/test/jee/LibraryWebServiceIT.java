@@ -25,17 +25,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.rembx.test.jee.model.Book;
+import org.rembx.test.jee.dao.LibraryDAO;
 import org.rembx.test.jee.model.Books;
-import org.rembx.test.jee.model.LibraryDAO;
 import org.rembx.test.jee.service.LibraryService;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-
+/**
+ * This test has to be launched with arquillian maven profile configured as it 
+ * deploys Library WebService to arquillian profile's configured container and tests it by using
+ * LibraryService test client.
+ * 
+ * @author remibantos
+ */
 @RunWith(Arquillian.class)
 public class LibraryWebServiceIT {
 
@@ -59,6 +65,7 @@ public class LibraryWebServiceIT {
         return ShrinkWrap.create(JavaArchive.class, APP_NAME + ".jar")
                 .addPackage(LibraryService.class.getPackage())
                 .addPackage(LibraryDAO.class.getPackage())
+                .addPackage(Books.class.getPackage())
                 .addAsManifestResource(new File(RESOURCES_META_INF + "persistence.xml"))
                 .addAsManifestResource(new File (RESOURCES_META_INF + "beans.xml"));
     }
@@ -84,23 +91,4 @@ public class LibraryWebServiceIT {
 
     }
     
-    @Test
-    public void deleteDataTestBook(){
-        assertNotNull(client.findBook(12345));
-        client.deleteBook(12345);
-        assertNull(client.findBook(12345));
-    }
-
-    @Test
-    public void findDataTestBook(){
-        assertNotNull(client.findBook(1234));
-    }
-
-    @Test
-    public void getAllBookwShouldReturnANotEmptySetOfBooks(){
-        Books allBooks = client.getAllBooks();
-        assertNotNull(client.getAllBooks());
-        assertNotEquals(0, allBooks.getBooks().size());
-    }
-
 }

@@ -18,20 +18,31 @@ package org.rembx.test.jee.service;
 
 import org.rembx.test.jee.model.Book;
 import org.rembx.test.jee.model.Books;
-import org.rembx.test.jee.model.LibraryDAO;
+import org.rembx.test.jee.dao.LibraryDAO;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-
+/**
+ * Sample of stateless EJB WebService
+ * @author remibantos
+ */
 @Stateless
 @WebService
 public class LibraryWebService implements LibraryService {
-
-    @Inject
+    
     LibraryDAO libraryDAO;
+
+    public LibraryWebService(){
+
+    }
+    
+    @Inject
+    public LibraryWebService (LibraryDAO libraryDAO){
+        this.libraryDAO = libraryDAO;
+    }
 
     @Override
     @WebMethod

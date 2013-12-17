@@ -1,1 +1,4 @@
-This file was created by IntelliJ IDEA 12.1.6 for binding GitHub repository
+Sample of JEE 7 EJB stateless WebService.
+
+Note:   - "arq-jbossas-managed" maven profile has to be enabled in order to execute 
+           arquillian integration tests on Wildfly 8 AS during maven build.

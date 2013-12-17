@@ -14,9 +14,8 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.arquillian.container>8.0.0.Alpha3</version.arquillian.container>
+        <version.arquillian.container>8.0.0.Beta1</version.arquillian.container>
         <version.arquillian.junit.container>1.1.1.Final</version.arquillian.junit.container>
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
 
         <version.javaee>7.0</version.javaee>
 
@@ -35,7 +34,8 @@
     </properties>
 
     <dependencies>
-
+		
+		<!-- JEE spec -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -56,6 +56,12 @@
             <version>${version.arquillian.junit.container}</version>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
 
     </dependencies>
 
@@ -64,11 +70,9 @@
             is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
-                annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
