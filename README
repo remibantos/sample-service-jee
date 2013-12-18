@@ -1,4 +1,6 @@
 Sample of JEE 7 EJB stateless WebService.
 
+Continous integration using Travis.
+
 Note:   - "arq-jbossas-managed" maven profile has to be enabled in order to execute 
            arquillian integration tests on Wildfly 8 AS during maven build.
