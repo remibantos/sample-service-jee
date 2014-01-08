@@ -1,6 +1,6 @@
-Sample of JEE 7 EJB stateless WebService.
-
-Continous integration using Travis.
+JEE 7 samples:
+- stateless EJB Library Web Service using JPA2
+- Message driven bean consuming a JMS queue filled by a WebService method.
 
 Note:   - "arq-jbossas-managed" maven profile has to be enabled in order to execute 
-           arquillian integration tests on Wildfly 8 AS during build.
+           arquillian integration tests on a Wildfly 8 server.

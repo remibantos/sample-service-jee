@@ -16,12 +16,15 @@
  */
 package org.rembx.sample.jee.service;
 
+import org.rembx.sample.jee.Resources;
 import org.rembx.sample.jee.model.Book;
 import org.rembx.sample.jee.model.Books;
 import org.rembx.sample.jee.dao.LibraryDAO;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jms.JMSDestinationDefinition;
+import javax.jms.JMSDestinationDefinitions;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -31,6 +34,14 @@ import javax.jws.WebService;
  */
 @Stateless
 @WebService
+
+@JMSDestinationDefinitions({
+        @JMSDestinationDefinition(
+                name = Resources.TEST_QUEUE,
+                resourceAdapter = "jmsra",
+                interfaceName = "javax.jms.Queue",
+                destinationName="testQueue2",
+                description="Test Queue")})
 public class LibraryWebService implements LibraryService {
     
     LibraryDAO libraryDAO;
